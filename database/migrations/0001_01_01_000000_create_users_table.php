@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            //Employer id to relate with job id
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email')->unique();

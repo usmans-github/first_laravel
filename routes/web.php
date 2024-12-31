@@ -12,12 +12,6 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-// Route::get('/', function () {
-//   $job = Job::all();
-//   dd($job[0]->title);
-// });
-
 Route::get("/jobs", function () {
     return view("jobs", [
         "jobs" => Job::all()
