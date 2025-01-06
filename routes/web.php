@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get("/jobs", function () {
     // $job = Job::all();
-    $job = Job::with('employer')->latest() ->cursorPaginate(3); //Paginate //cursorPaginate
+    $job = Job::with('employer')->latest()->cursorPaginate(3); //Paginate //cursorPaginate
     
     return view("jobs.index", [
         "jobs" => $job
@@ -22,7 +22,7 @@ Route::get("/jobs", function () {
 });
 
 
-Route::get("/jobs/create", function(){
+Route::get("/jobs/create", function() {
    return view('jobs.create');
 });
 
