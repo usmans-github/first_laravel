@@ -14,22 +14,41 @@ Route::get('/', function () {
 
 Route::get("/jobs", function () {
     // $job = Job::all();
-    $job = Job::with('employer')->cursorPaginate(3); //Paginate //cursorPaginate
+    $job = Job::with('employer')->latest() ->cursorPaginate(3); //Paginate //cursorPaginate
     
-    return view("jobs", [
+    return view("jobs.index", [
         "jobs" => $job
     ]);
+});
+
+
+Route::get("/jobs/create", function(){
+   return view('jobs.create');
+});
+
+//Route for creating a new job
+Route::post('/jobs', function () {
+//    dd(request()->all()); validation...
+
+
+    Job::create([
+        'title' => request('title'),
+        'salary' => request('salary'),
+        'employer_id' => 1
+
+    ]);
+    return redirect('/jobs');
 });
 
 Route::get("/jobs/{id}", function ($id) {
     //Find that matchs the id
    $job  = Job::find($id);
     // dd($job);    
-    return view("job", ["job" => $job]);
+    return view("jobs.show", ["job" => $job]);
 });
-
+    
 //Route for user Home
-Route::get("/user-home", [UserController::class, "userHome"]);
+Route::get("/user-ho}me", [UserController::class, "userHome"]);
 
 //Route for admin Home
 Route::get("/admin-home/{name}", [AdminController::class, "adminHome"]);
