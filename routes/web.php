@@ -14,7 +14,7 @@ Route::get('/', function () {
 
 Route::get("/jobs", function () {
     // $job = Job::all();
-    $job = Job::with('employer')->paginate(3);
+    $job = Job::with('employer')->cursorPaginate(3); //Paginate //cursorPaginate
     
     return view("jobs", [
         "jobs" => $job

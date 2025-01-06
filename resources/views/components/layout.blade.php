@@ -19,7 +19,7 @@
             </ul>
         </nav>
     </header>
-    <main class="flex flex-col justify-center items-center">
+    <main class="mx-10 my-10">
         {{ $slot }}
     </main>
 </body>
