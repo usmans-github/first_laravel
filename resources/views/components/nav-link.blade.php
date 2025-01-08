@@ -1,1 +1,1 @@
-<a {{ $attributes }} class="text-lg font-medium "> {{ $slot  }} </a>
+<a {{ $attributes }} class="text-lg font-bold hover:underline text-black  "> {{ $slot  }} </a>

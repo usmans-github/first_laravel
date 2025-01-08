@@ -5,7 +5,7 @@
         @csrf
         @method('PATCH')
         <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
+            <div class=" pb-12">
                
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -63,9 +63,7 @@
                     <a href="/jobs/{{ $job->id }}" class="text-sm/6 font-semibold text-gray-900">Cancel</a>
                     
                     
-                    <div><button type="submit"
-                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm
-                        hover:bg-indigo-500 ">Update</button></div>
+                    <div><x-form-button type="submit">Update</x-form-button></div>
                 </div>
             </div>
     </form>

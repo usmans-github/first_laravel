@@ -1,59 +1,36 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\RegisterUserController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Job;
-;
 
 
-    
-Route::get('/', function () {
+Route::view('/', 'home');
 
-    return view('home');
+
+Route::controller(JobController::class)->group(function () {
+    Route::get('/jobs',  'index');
+    Route::get("/jobs/create",  'create');
+    Route::post('/jobs',  'store')->middleware('auth');     
+    Route::get("/jobs/{job}",  'show');
+
+    Route::get("/jobs/{job}/edit",  'edit')
+    ->middleware('auth')
+    ->can('edit', 'job');
+
+    Route::patch("/jobs/{job}",  'update');
+    Route::delete("/jobs/{job}", 'delete');
 });
 
-//All Jobs 
-Route::get('/jobs', [JobController::class, 'all']);
-// Route::get("/jobs", function () {
-//     // $job = Job::all();
-//     $job = Job::with('employer')->latest()->cursorPaginate(5); //Paginate //cursorPaginate
+// Route::resource('jobs', JobController::class)->only(['index', 'show']);
+// Route::resource('jobs', JobController::class)->except(['index', 'show'])->middleware('auth');
 
-//     return view("jobs.index", [
-//         "jobs" => $job
-//     ]);
-// });
+//Auth
+Route::get('/register', [RegisterUserController::class, 'create']);
+Route::post('/register', [RegisterUserController::class, 'store']);
 
 
-
-//Job Create Page
-Route::get("/jobs/create", [JobController::class, 'create']);
-
-
-//Store  a new job
-Route::post('/jobs', [JobController::class, 'store']);
-
-
-
-//Show the Job with Id
-//route model binding ; 
-Route::get("/jobs/{job}", [JobController::class, 'show']);
-
-
-
-
-//Show the Edit Job Page with Id
-//route model binding ; 
-Route::get("/jobs/{job}/edit", [JobController::class, 'edit']);
-
-
-
-
-//Update the  Job Page with Id
-//route model binding ; 
-Route::patch("/jobs/{job}", [JobController::class, 'update']);
-
-
-
-//Delete the  Job Page with Id
-//route model binding ; 
-Route::delete("/jobs/{job}", [JobController::class, 'delete']);
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy']);
