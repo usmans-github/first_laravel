@@ -6,12 +6,14 @@ use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
 
+
+
 Route::view('/', 'home');
 
 
 Route::controller(JobController::class)->group(function () {
     Route::get('/jobs',  'index');
-    Route::get("/jobs/create",  'create');
+    Route::get("/jobs/create",  'create');  
     Route::post('/jobs',  'store')->middleware('auth');     
     Route::get("/jobs/{job}",  'show');
 
